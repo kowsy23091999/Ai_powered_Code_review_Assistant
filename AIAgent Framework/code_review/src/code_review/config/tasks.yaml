@@ -1,0 +1,217 @@
+# analyze_code_task:
+#   description: >
+#     Analyze the following code snippet:
+#     ```
+#     {code_snippet}
+#     ```
+#     First, identify the programming language of this code. Then, analyze the code
+#     for potential issues, including syntax errors, security vulnerabilities, 
+#     performance inefficiencies, and best practice violations.
+    
+#     If the user is asking for debugging help:
+#     - Focus on identifying actual and potential runtime errors
+#     - Highlight areas where exceptions might be thrown
+#     - Suggest appropriate debugging techniques for the detected language
+#     - Recommend logging placement for effective troubleshooting
+    
+#     If the user is asking for code explanation:
+#     - Provide detailed line-by-line explanation when requested
+#     - Focus on explaining the purpose and logic behind each section
+#     - Clarify complex algorithms or data structures in simple terms
+#     - Identify the role of each significant function and class
+    
+#     If the user is asking about specific errors:
+#     - Zoom in on the mentioned error or problematic area
+#     - Analyze the root cause and potential fixes
+#     - Be precise about line numbers and specific issues
+    
+#     For large code files (200+ lines):
+#     - Focus on high-level architecture and main components
+#     - Identify key patterns and design decisions
+#     - Summarize potential issues by category rather than exhaustively listing every issue
+    
+#     Consider language-specific best practices and conventions in your analysis.
+#     If there are any specific user instructions or queries, prioritize analyzing
+#     those aspects of the code first.
+#   expected_output: >
+#     A structured analysis that begins with the identified programming language, followed
+#     by a list of detected code issues categorized by type (syntax, security, performance),
+#     with special attention to any user-specified concerns.
+#   agent: researcher
+
+# provide_feedback_task:
+#   description: >
+#     Review the identified issues in the following code:
+#     ```
+#     {code_snippet}
+#     ```
+#     Provide clear, constructive feedback on how to resolve them.
+#     Include language-specific recommendations and best practices in your feedback.
+    
+#     If the user is requesting debugging help:
+#     - Provide specific debugging strategies tailored to the language
+#     - Suggest exact placement of logging or debugging statements
+#     - Include example debug code snippets when helpful
+#     - Recommend debugging tools appropriate for the identified language
+    
+#     If the user is asking for code explanation:
+#     - Structure your feedback as a tutorial or walkthrough
+#     - Explain design choices and their implications
+#     - Compare approaches used in the code to alternatives when relevant
+#     - Use clear, educational language suitable for the apparent complexity level
+    
+#     If the user mentions specific errors:
+#     - Focus your feedback entirely on the specified issues
+#     - Provide multiple solution options if applicable
+#     - Include error prevention strategies for similar future issues
+    
+#     For large code files (100+ lines):
+#     - Focus on high-impact improvements rather than minor issues
+#     - Prioritize architectural and design-level feedback
+#     - Group similar issues together with representative examples
+    
+#     If there are any specific user instructions or queries, ensure your feedback
+#     addresses those concerns thoroughly.
+#   expected_output: >
+#     A detailed review document with explanations and recommendations for each issue found,
+#     tailored to the specific programming language detected and prioritizing any user-specified concerns.
+#   agent: reporting_analyst
+
+# optimize_code_task:
+#   description: >
+#     Refactor the following code:
+#     ```
+#     {code_snippet}
+#     ```
+#     Ensure the new version is more efficient, readable, and maintainable.
+#     Apply language-specific optimizations and best practices.
+    
+#     If the user has requested debugging improvements:
+#     - Add appropriate error handling and validation
+#     - Improve exception handling and error messaging
+#     - Add strategic logging or telemetry points
+#     - Make the code more testable and easier to debug
+    
+#     If the user has requested refactoring:
+#     - Apply SOLID principles and appropriate design patterns
+#     - Improve naming conventions and code organization
+#     - Reduce code duplication and increase modularity
+#     - Present before/after comparisons for significant changes
+    
+#     If the user has asked about specific errors or issues:
+#     - Provide targeted fixes for the mentioned issues
+#     - Thoroughly test and validate the specific changes
+#     - Include explanations of why the fix works
+    
+#     For large code files (200+ lines):
+#     - Focus on high-impact refactoring opportunities
+#     - Prioritize architectural improvements and design patterns
+#     - If full refactoring is impractical, provide a partial refactoring of key components with guidance for the rest
+    
+#     If there are any specific user instructions or queries about optimization,
+#     prioritize those requirements in your refactoring approach.
+#   expected_output: >
+#     A refactored and optimized version of the code with explanations for each change,
+#     maintaining the original functionality while improving performance and readability,
+#     with special attention to any user-specified optimization requirements.
+#   agent: optimization_expert
+
+
+analyze_code_task:
+  description: >
+    Analyze the following code snippet:
+    ```
+    {code_snippet}
+    ```
+    Identify the programming language and evaluate the code for:
+    - Syntax and semantic correctness
+    - Security risks
+    - Performance issues
+    - Best practice violations
+
+    When debugging is requested:
+    - Focus on runtime errors and flow issues
+    - Spot potential crash points or edge case failures
+    - Recommend logging or tracing strategies
+
+    For explanation requests:
+    - Provide intuitive, beginner-friendly breakdowns
+    - Clarify algorithms, class responsibilities, and business logic
+
+    For specific errors:
+    - Localize the problem
+    - Explain root cause and resolution paths
+
+    For large codebases:
+    - Summarize key architecture and problematic patterns
+    - Focus on macro-level improvements over line-by-line details
+
+  expected_output: >
+    - Programming language detected
+    - Issue list categorized by: Syntax, Security, Performance, Best Practices
+    - Highlighted analysis of any user-specified concerns
+  agent: researcher
+
+provide_feedback_task:
+  description: >
+    Review the issues identified in the following code:
+    ```
+    {code_snippet}
+    ```
+    Provide constructive, educational, and actionable feedback.
+
+    For debugging requests:
+    - Suggest debugging strategies and example fixes
+    - Recommend logging placement and tooling
+
+    For explanation requests:
+    - Offer structured walkthroughs of logic and architecture
+    - Compare design choices and suggest alternatives if relevant
+
+    For specific errors:
+    - Address only the mentioned problem
+    - Include targeted fixes and prevention tips
+
+    For large files:
+    - Focus on impactful, high-priority improvements
+    - Group issues by category and provide representative examples
+
+  expected_output: >
+    A structured review document that:
+    - Addresses each issue with clear suggestions
+    - Includes helpful code samples or links if needed
+    - Tailors advice to user requests (debugging, explanation, etc.)
+  agent: reporting_analyst
+
+optimize_code_task:
+  description: >
+    Refactor the following code:
+    ```
+    {code_snippet}
+    ```
+    Improve:
+    - Efficiency and runtime performance
+    - Readability and maintainability
+    - Modularity and testability
+
+    For debugging requests:
+    - Harden error handling
+    - Add validation and useful diagnostics
+
+    For refactoring:
+    - Apply patterns (e.g., SOLID, DRY, KISS)
+    - Remove duplication, clarify naming, improve organization
+
+    For specific issues:
+    - Provide targeted, tested fixes
+    - Explain rationale behind each change
+
+    For large files:
+    - Focus on core modules and give guidance for scaling refactors
+
+  expected_output: >
+    A cleaner, optimized version of the input code:
+    - Preserving original functionality
+    - Annotated with improvements
+    - Prioritizing user-stated requirements (performance, readability, robustness)
+  agent: optimization_expert
